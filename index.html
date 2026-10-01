@@ -1,0 +1,751 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Net-Zero Aquaponics Farm, Madinah | Project Checklist | Creed-to-Commerce™</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Source+Sans+3:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<style>
+:root{
+  --green-900:#12372C;
+  --green-700:#1B4D3E;
+  --green-500:#2E7D4F;
+  --green-100:#E3EEE4;
+  --gold-500:#C8A24A;
+  --gold-300:#E4C877;
+  --gold-100:#F6EDD2;
+  --ink:#17261E;
+  --muted:#5B6B61;
+  --paper:#F3F6F1;
+  --card:#FFFFFF;
+  --line:#D6E0D3;
+  --warn:#A4452C;
+  --serif:"Amiri","Traditional Arabic","Times New Roman",serif;
+  --sans:"Source Sans 3","Segoe UI",Helvetica,Arial,sans-serif;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--sans);font-size:16px;line-height:1.5;-webkit-font-smoothing:antialiased}
+button,input,textarea,select{font:inherit;color:inherit}
+:focus-visible{outline:3px solid var(--gold-500);outline-offset:2px;border-radius:4px}
+
+/* Hero */
+.hero{background:var(--green-700);color:#fff;text-align:center;padding:40px 20px 34px;border-bottom:6px solid var(--gold-500)}
+.basmala{font-family:var(--serif);font-size:clamp(34px,6vw,56px);line-height:1.5;color:var(--gold-300);margin:0 0 6px;font-weight:400}
+.hero h1{font-family:var(--serif);font-weight:700;font-size:clamp(26px,4.4vw,42px);line-height:1.15;margin:0 0 6px}
+.hero p{margin:0;color:#CFE0D3;font-size:17px}
+.hero .fw{margin-top:10px;color:var(--gold-300);font-family:var(--serif);font-size:20px}
+
+.wrap{max-width:1120px;margin:0 auto;padding:24px 18px 60px}
+section{margin-top:22px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:20px}
+h2{font-family:var(--serif);font-size:26px;line-height:1.2;margin:0 0 4px;color:var(--green-700)}
+.sub{margin:0 0 16px;color:var(--muted);font-size:15px}
+
+/* Details form */
+.fields{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:14px}
+.field label{display:block;font-size:14px;font-weight:600;margin-bottom:4px;color:var(--green-700)}
+.field input{width:100%;padding:9px 10px;border:1px solid var(--line);border-radius:6px;background:#fff}
+.field .inline{display:flex;gap:8px}
+.field .inline input{flex:1}
+.actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:18px}
+.btn{border:1px solid var(--green-700);background:#fff;color:var(--green-700);padding:9px 16px;border-radius:6px;font-weight:600;cursor:pointer}
+.btn:hover{background:var(--green-100)}
+.btn.primary{background:var(--green-700);color:#fff}
+.btn.primary:hover{background:var(--green-900)}
+.btn.gold{background:var(--gold-500);border-color:var(--gold-500);color:var(--green-900)}
+.btn.gold:hover{background:var(--gold-300)}
+.btn.small{padding:6px 10px;font-size:14px}
+.btn[disabled]{opacity:.6;cursor:progress}
+.note{font-size:14px;color:var(--muted);margin:10px 0 0}
+
+/* Score */
+.score{display:grid;grid-template-columns:240px 1fr;gap:22px;align-items:center}
+.ringbox{position:relative;width:200px;height:200px;margin:0 auto}
+.ringbox svg{width:100%;height:100%;transform:rotate(-90deg)}
+.ring-bg{fill:none;stroke:var(--green-100);stroke-width:14}
+.ring-fg{fill:none;stroke:var(--green-500);stroke-width:14;stroke-linecap:round;transition:stroke-dashoffset .6s ease}
+.ringtxt{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center}
+.ringtxt b{font-family:var(--serif);font-size:54px;line-height:1;color:var(--green-700)}
+.ringtxt span{font-size:14px;color:var(--muted)}
+.counters{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.counter{border:1px solid var(--line);border-radius:8px;padding:12px 14px}
+.counter b{display:block;font-family:var(--serif);font-size:40px;line-height:1.1}
+.counter span{font-size:14px;color:var(--muted)}
+.counter.done b{color:var(--green-500)}
+.counter.open b{color:var(--ink)}
+.counter.late b{color:var(--warn)}
+.pace{margin:14px 0 10px;padding:10px 14px;border-left:5px solid var(--gold-500);background:var(--gold-100);border-radius:0 6px 6px 0;font-weight:600}
+.pace.behind{border-left-color:var(--warn);background:#F7E4DE}
+.phasebars{display:grid;gap:8px}
+.pbar{display:grid;grid-template-columns:200px 1fr 70px;gap:10px;align-items:center;font-size:14px}
+.track{height:10px;background:var(--green-100);border-radius:6px;overflow:hidden}
+.track i{display:block;height:100%;background:var(--green-500);border-radius:6px;transition:width .5s ease}
+.pbar em{font-style:normal;text-align:right;color:var(--muted)}
+
+/* Chart */
+.chart svg{width:100%;height:auto;display:block}
+
+/* Checklist */
+.toolbar{display:flex;flex-wrap:wrap;gap:10px;align-items:center;justify-content:space-between;margin-bottom:14px}
+.seg{display:inline-flex;border:1px solid var(--green-700);border-radius:6px;overflow:hidden}
+.seg button{border:0;background:#fff;padding:7px 14px;cursor:pointer;font-weight:600;color:var(--green-700)}
+.seg button[aria-pressed="true"]{background:var(--green-700);color:#fff}
+.phase{border:1px solid var(--line);border-radius:10px;background:#fff;margin-bottom:14px;overflow:hidden}
+.phase-head{width:100%;display:grid;grid-template-columns:1fr auto;gap:4px 14px;align-items:center;text-align:left;border:0;background:var(--green-700);color:#fff;padding:14px 18px;cursor:pointer}
+.phase-head .pt{font-family:var(--serif);font-size:23px;font-weight:700;line-height:1.2}
+.phase-head .pm{font-size:14px;color:#CFE0D3}
+.phase-head .pc{font-family:var(--serif);font-size:24px;color:var(--gold-300);text-align:right}
+.phase-head .pcm{display:block;font-family:var(--sans);font-size:13px;color:#CFE0D3}
+.group{padding:10px 18px 4px}
+.group h3{margin:10px 0 6px;font-size:17px;font-weight:700;color:var(--green-700);display:flex;justify-content:space-between;gap:10px;border-bottom:2px solid var(--gold-300);padding-bottom:4px}
+.group h3 span{font-weight:500;color:var(--muted);font-size:14px}
+ul.tasks{list-style:none;margin:0;padding:0}
+.task{display:grid;grid-template-columns:30px minmax(0,1fr) 140px 138px 138px 30px;gap:10px;align-items:start;padding:8px 0;border-bottom:1px solid #EDF2EB}
+.task:last-child{border-bottom:0}
+.chk{position:relative;display:block;width:24px;height:24px;margin-top:6px}
+.chk input{position:absolute;inset:0;opacity:0;margin:0;cursor:pointer;width:100%;height:100%}
+.box{display:block;width:24px;height:24px;border:2px solid var(--green-500);border-radius:5px;background:#fff;transition:background .15s}
+.chk input:checked + .box{background:var(--green-500)}
+.chk input:checked + .box::after{content:"";display:block;width:6px;height:12px;border:solid #fff;border-width:0 3px 3px 0;transform:translate(7px,2px) rotate(45deg)}
+.chk input:focus-visible + .box{outline:3px solid var(--gold-500);outline-offset:2px}
+.task textarea,.task input[type=text],.task input[type=date]{width:100%;border:1px solid transparent;background:transparent;padding:6px 8px;border-radius:6px;resize:none;overflow:hidden}
+.task textarea{line-height:1.4}
+.task textarea:hover,.task input:hover:not([type=checkbox]){border-color:var(--line)}
+.task textarea:focus,.task input[type=text]:focus,.task input[type=date]:focus{border-color:var(--green-500);background:#fff}
+.task.done textarea{color:var(--muted);text-decoration:line-through;text-decoration-color:var(--gold-500)}
+.task .d{display:block;font-size:12px;color:var(--muted)}
+.task .d span{display:block;padding-left:8px;line-height:1.1}
+.task.overdue .due input{color:var(--warn);font-weight:600}
+.task .d[hidden]{display:none}
+.task .ph{color:var(--muted)}
+.del{border:0;background:transparent;color:var(--muted);font-size:22px;line-height:1;cursor:pointer;border-radius:5px;margin-top:5px;padding:0 4px}
+.del:hover{color:var(--warn);background:#F7E4DE}
+.addrow{padding:6px 18px 16px}
+.empty{padding:14px 18px;color:var(--muted)}
+
+footer{margin-top:30px;border-top:4px solid var(--gold-500);background:var(--green-900);color:#CFE0D3;text-align:center;padding:22px 16px;font-size:14px}
+footer b{color:var(--gold-300);font-family:var(--serif);font-size:18px;font-weight:700}
+
+.toast{position:fixed;left:50%;bottom:22px;transform:translateX(-50%) translateY(20px);background:var(--green-900);color:#fff;padding:10px 18px;border-radius:8px;opacity:0;pointer-events:none;transition:all .25s;z-index:20;max-width:90vw;text-align:center}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+
+@media (max-width:860px){
+  .score{grid-template-columns:1fr}
+  .pbar{grid-template-columns:1fr 70px}
+  .pbar .track{grid-column:1/-1;order:3}
+  .task{grid-template-columns:30px minmax(0,1fr) 30px}
+  .task .owner,.task .due,.task .doneon{grid-column:2/3}
+  .task .del{grid-column:3;grid-row:1}
+}
+@media (max-width:520px){
+  .counters{grid-template-columns:1fr}
+}
+@media (prefers-reduced-motion:reduce){
+  *{transition:none !important;scroll-behavior:auto !important}
+}
+@media print{
+  .actions,.toolbar,.addrow,.del{display:none}
+  body{background:#fff}
+}
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <p class="basmala" lang="ar" dir="rtl">بِسْمِ ٱللَّهِ ٱلرَّحْمَٰنِ ٱلرَّحِيمِ</p>
+  <h1 id="heroTitle">Net-Zero Aquaponics Farm</h1>
+  <p id="heroSub">Madinah, Kingdom of Saudi Arabia · Project Checklist</p>
+  <p class="fw">Creed-to-Commerce™</p>
+</header>
+
+<main class="wrap">
+
+  <section aria-labelledby="detailsH">
+    <div class="card">
+      <h2 id="detailsH">Project details and dates</h2>
+      <p class="sub">Changing the project start date moves every due date by the same number of days. You can still set any single date by hand in the checklist below.</p>
+      <div class="fields">
+        <div class="field"><label for="fTitle">Project title</label><input id="fTitle" type="text"></div>
+        <div class="field"><label for="fSub">Subtitle</label><input id="fSub" type="text"></div>
+        <div class="field"><label for="fBy">Prepared by</label><input id="fBy" type="text"></div>
+        <div class="field"><label for="fStart">Project start date</label><input id="fStart" type="date"></div>
+        <div class="field"><label for="fAsOf">Report date (status as of)</label>
+          <div class="inline"><input id="fAsOf" type="date"><button class="btn small" id="btnToday" type="button">Use today</button></div>
+        </div>
+      </div>
+      <div class="actions">
+        <button class="btn primary" id="btnPdf" type="button">Build PDF report</button>
+        <button class="btn" id="btnExport" type="button">Save backup file</button>
+        <button class="btn" id="btnImport" type="button">Load backup file</button>
+        <button class="btn" id="btnReset" type="button">Reset to proposal plan</button>
+        <input id="fileIn" type="file" accept="application/json,.json" hidden>
+      </div>
+      <p class="note" id="saveNote">Your progress saves automatically in this browser on this device. Use the backup file to move it to another device.</p>
+    </div>
+  </section>
+
+  <section aria-labelledby="scoreH">
+    <div class="card">
+      <h2 id="scoreH">Completion score</h2>
+      <p class="sub">Tasks move from not completed to completed as you check them off.</p>
+      <div class="score">
+        <div class="ringbox" role="img" aria-label="Completion ring" id="ringBox">
+          <svg viewBox="0 0 120 120" aria-hidden="true"><circle class="ring-bg" cx="60" cy="60" r="52"/><circle class="ring-fg" id="ringFg" cx="60" cy="60" r="52" stroke-dasharray="326.73" stroke-dashoffset="326.73"/></svg>
+          <div class="ringtxt"><b id="pct">0%</b><span>complete</span></div>
+        </div>
+        <div>
+          <div class="counters">
+            <div class="counter done"><b id="cDone">0</b><span>Completed</span></div>
+            <div class="counter open"><b id="cOpen">0</b><span>Not completed</span></div>
+            <div class="counter late"><b id="cLate">0</b><span>Overdue</span></div>
+          </div>
+          <div class="pace" id="pace" role="status"></div>
+          <div class="phasebars" id="phaseBars"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section aria-labelledby="tlH">
+    <div class="card chart">
+      <h2 id="tlH">Timeline graph</h2>
+      <p class="sub">Cumulative tasks planned by due date against tasks actually completed.</p>
+      <div id="chart"></div>
+    </div>
+  </section>
+
+  <section aria-labelledby="listH">
+    <div class="toolbar">
+      <div>
+        <h2 id="listH">Project checklist</h2>
+        <p class="sub" style="margin:0">Edit any task, owner, or date directly. Checking a task records today as its completion date.</p>
+      </div>
+      <div class="seg" role="group" aria-label="Filter tasks">
+        <button type="button" data-filter="all" aria-pressed="true">All</button>
+        <button type="button" data-filter="open" aria-pressed="false">Not completed</button>
+        <button type="button" data-filter="done" aria-pressed="false">Completed</button>
+      </div>
+    </div>
+    <div id="list"></div>
+  </section>
+
+</main>
+
+<footer>
+  <b>The Balanced Middle Path Academy, LLC (BMPA)</b><br>
+  © 2026 The Balanced Middle Path Academy, LLC (BMPA) | Creed-to-Commerce™<br>
+  Built from the Net-Zero Aquaponics Farm, Madinah proposal | www.bmpa.com | contact@bmpa.com
+</footer>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script>
+(function(){
+"use strict";
+
+/* ---------- Constants ---------- */
+var STORE_KEY = "bmpa_aquaponics_madinah_checklist_v1";
+var PHASES = {
+  1:{name:"Phase 1: Proof of Concept", months:"Months 1 to 12", goal:"Validate technology and demand assumptions"},
+  2:{name:"Phase 2: Duplication and Scaling", months:"Months 13 to 18", goal:"Scale revenue; supply Riyadh and Jeddah markets"},
+  3:{name:"Phase 3: Diversification", months:"Month 24 onward", goal:"Build a multi-stream closed-loop agricultural ecosystem"}
+};
+
+/* [title, due month (end of), note] grouped by milestone */
+var PLAN = [
+ {p:1,g:"Site selection and legal setup (Months 1 to 2)",t:[
+  ["Hold the 60-minute discovery call: financial projections, site shortlist, equity term sheet",1],
+  ["Commission rapid site feasibility assessment (soil, solar, logistics) for 2 to 3 candidate sites near Madinah",1],
+  ["Secure land lease or acquisition near Madinah",2],
+  ["Register the operating company",2],
+  ["Engage KSA agricultural legal counsel and begin MEWA engagement",2],
+  ["Obtain regulatory approvals",2],
+  ["Prepare shareholders' agreement and detailed term sheet",2],
+  ["Run Phase 1 investor briefing and capital raise",2],
+  ["Document standard operating procedures (SOPs) from Day 1",2]
+ ]},
+ {p:1,g:"Greenhouse construction (Months 2 to 5)",t:[
+  ["Build super adobe greenhouse structure oriented to Madinah solar incidence angles",5],
+  ["Install passive aeration: vents, thermal chimneys, natural convection paths",5],
+  ["Install aquaponics infrastructure: tanks, plumbing, grow beds",5],
+  ["Install dissolved oxygen sensors with SMS alerts",5],
+  ["Install backup battery-powered aerators",5],
+  ["Install automated pH dosing system",5],
+  ["Fit shade netting as secondary heat layer",5]
+ ]},
+ {p:1,g:"System commissioning (Months 5 to 6)",t:[
+  ["Run water cycling",6],
+  ["Establish the bacterial colony",6],
+  ["Set up quarantine tank and biosecurity protocols",6],
+  ["Start weekly water testing routine (ammonia, pH)",6],
+  ["Stock initial Nile tilapia cohort",6],
+  ["Transplant cherry tomatoes",6]
+ ]},
+ {p:1,g:"First harvests and market launch (Months 7 to 9)",t:[
+  ["Launch Instagram and TikTok farm content (farm tours, harvest time-lapse)",7],
+  ["First cherry tomato harvest (about 60 to 70 days after transplant)",8],
+  ["Sign direct supply contracts with Madinah hotels and restaurants",8],
+  ["Begin outreach to hotel procurement, hospital food services, and school meal programs",8],
+  ["First tilapia harvest (about 6 to 8 weeks after stocking)",9],
+  ["Open branded wholesale accounts with upscale supermarkets",9],
+  ["Engage MEWA and the Saudi Aquaculture Society",9]
+ ]},
+ {p:1,g:"Phase 1 data package (Month 12)",t:[
+  ["Track tilapia yield per tank, tomato output per m², water use ratios, and weekly harvest consistency",12],
+  ["Complete the Phase 1 data package (yield, water, and market performance)",12]
+ ]},
+ {p:2,g:"Duplication and scaling (Months 13 to 18)",t:[
+  ["Launch Phase 2 capital raise using the Phase 1 data package",14],
+  ["Replicate the farm on-site at Madinah",18],
+  ["Develop Qaseem site to supply the Riyadh market",18],
+  ["Develop Jeddah outskirts site",18]
+ ]},
+ {p:3,g:"Diversification (Month 24 onward)",t:[
+  ["Build 500 m² leafy greens greenhouse (target 144 heads per m² per month)",26],
+  ["Set up 8,000 m² alfalfa field irrigated by aquaponics effluent",26],
+  ["Build cattle pens, shade structures, and water troughs",28],
+  ["Launch cattle fattening using on-site alfalfa",30],
+  ["Run strawberry R&D zone (temperature, humidity, seasonality, nutrient flow)",30],
+  ["Scale strawberry production if the R&D zone validates it",30]
+ ]}
+];
+
+/* ---------- Date helpers (local, no timezone drift) ---------- */
+function iso(d){var m=d.getMonth()+1,day=d.getDate();return d.getFullYear()+"-"+(m<10?"0":"")+m+"-"+(day<10?"0":"")+day;}
+function parse(s){var a=(s||"").split("-").map(Number);return new Date(a[0],(a[1]||1)-1,a[2]||1);}
+function addDays(s,n){var d=parse(s);d.setDate(d.getDate()+n);return iso(d);}
+function addMonths(s,n){var d=parse(s),day=d.getDate();var t=new Date(d.getFullYear(),d.getMonth()+n,1);var last=new Date(t.getFullYear(),t.getMonth()+1,0).getDate();t.setDate(Math.min(day,last));return iso(t);}
+function dayDiff(a,b){return Math.round((parse(a)-parse(b))/86400000);}
+function fmt(s){return s?parse(s).toLocaleDateString("en-GB",{day:"numeric",month:"short",year:"numeric"}):"";}
+var TODAY = iso(new Date());
+
+/* ---------- State ---------- */
+var state, filter="all";
+
+function defaultStart(){
+  var d=new Date(); var t=new Date(d.getFullYear(), d.getMonth()+1, 1); return iso(t);
+}
+function seed(){
+  var start=defaultStart(), tasks=[], n=0;
+  PLAN.forEach(function(m){
+    m.t.forEach(function(x){
+      tasks.push({id:"t"+(n++),phase:m.p,group:m.g,title:x[0],owner:"",due:addDays(addMonths(start,x[1]),-1),done:false,doneAt:""});
+    });
+  });
+  return {
+    meta:{title:"Net-Zero Aquaponics Farm",subtitle:"Madinah, Kingdom of Saudi Arabia · Project Checklist",preparedBy:"The Balanced Middle Path Academy, LLC (BMPA)",startDate:start,reportDate:""},
+    tasks:tasks, collapsed:{}
+  };
+}
+function load(){
+  try{
+    var raw=localStorage.getItem(STORE_KEY);
+    if(raw){var s=JSON.parse(raw); if(s&&s.meta&&Array.isArray(s.tasks)){s.collapsed=s.collapsed||{};return s;}}
+  }catch(e){}
+  return seed();
+}
+var saveTimer=null;
+function save(){
+  clearTimeout(saveTimer);
+  saveTimer=setTimeout(function(){
+    try{localStorage.setItem(STORE_KEY,JSON.stringify(state));el("saveNote").textContent="Saved on this device at "+new Date().toLocaleTimeString([], {hour:"2-digit",minute:"2-digit"})+". Use the backup file to move your progress to another device.";}
+    catch(e){el("saveNote").textContent="This browser blocked automatic saving. Use Save backup file to keep your progress.";}
+  },250);
+}
+function asOf(){return state.meta.reportDate||TODAY;}
+
+/* ---------- Utilities ---------- */
+function el(id){return document.getElementById(id);}
+function esc(s){return String(s==null?"":s).replace(/[&<>"']/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c];});}
+var toastT;
+function toast(msg){var t=el("toast");t.textContent=msg;t.classList.add("show");clearTimeout(toastT);toastT=setTimeout(function(){t.classList.remove("show");},3200);}
+
+/* ---------- Stats ---------- */
+function stats(){
+  var T=state.tasks, total=T.length, done=T.filter(function(t){return t.done;}).length;
+  var a=asOf();
+  var late=T.filter(function(t){return !t.done && t.due<a;}).length;
+  var dueNow=T.filter(function(t){return t.due<=a;}).length;
+  var diff=done-dueNow;
+  var pace, behind=false;
+  if(total===0){pace="No tasks yet. Add a task to begin.";}
+  else if(dueNow===0&&done===0){pace="No tasks are due yet as of "+fmt(a)+".";}
+  else if(diff>0){pace=diff+(diff===1?" task":" tasks")+" ahead of plan as of "+fmt(a)+".";}
+  else if(diff===0){pace="On plan as of "+fmt(a)+".";}
+  else {pace=(-diff)+(diff===-1?" task":" tasks")+" behind plan as of "+fmt(a)+".";behind=true;}
+  return {total:total,done:done,open:total-done,late:late,pct:total?Math.round(done/total*100):0,pace:pace,behind:behind};
+}
+
+/* ---------- Render: score ---------- */
+var shown={done:0,open:0,late:0,pct:0};
+function tween(id,to,suffix){
+  var node=el(id), from=shown[id]||0;
+  suffix=suffix||"";
+  if(window.matchMedia&&window.matchMedia("(prefers-reduced-motion: reduce)").matches||from===to){node.textContent=to+suffix;shown[id]=to;return;}
+  var t0=null;
+  function step(ts){if(t0===null)t0=ts;var k=Math.min(1,(ts-t0)/450);node.textContent=Math.round(from+(to-from)*k)+suffix;if(k<1)requestAnimationFrame(step);else shown[id]=to;}
+  requestAnimationFrame(step);
+}
+function renderScore(){
+  var s=stats();
+  tween("cDone",s.done);tween("cOpen",s.open);tween("cLate",s.late);
+  var node=el("pct"), from=shown.pct||0; node.textContent=s.pct+"%"; shown.pct=s.pct;
+  el("ringFg").style.strokeDashoffset=(326.73*(1-s.pct/100)).toFixed(2);
+  el("ringBox").setAttribute("aria-label",s.pct+" percent complete, "+s.done+" of "+s.total+" tasks");
+  var p=el("pace");p.textContent=s.pace;p.className="pace"+(s.behind?" behind":"");
+  var html="";
+  [1,2,3].forEach(function(ph){
+    var ts=state.tasks.filter(function(t){return t.phase===ph;}), d=ts.filter(function(t){return t.done;}).length;
+    var pc=ts.length?Math.round(d/ts.length*100):0;
+    html+='<div class="pbar"><span>'+esc(PHASES[ph].name)+'</span><span class="track"><i style="width:'+pc+'%"></i></span><em>'+d+" / "+ts.length+"</em></div>";
+  });
+  el("phaseBars").innerHTML=html;
+}
+
+/* ---------- Chart (plain SVG, hard-coded colours so it can also go into the PDF) ---------- */
+function buildChart(){
+  var W=900,H=340,L=46,R=20,T=34,B=44, FONT="Source Sans 3, Helvetica, Arial, sans-serif";
+  var tasks=state.tasks,total=tasks.length;
+  var head='<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 '+W+' '+H+'" role="img" aria-label="Timeline of planned versus completed tasks" font-family="'+FONT+'">';
+  if(!total) return head+'<text x="450" y="170" text-anchor="middle" fill="#5B6B61" font-size="16">Add tasks to see the timeline.</text></svg>';
+  var DAY=86400000, aT=parse(asOf()).getTime(), sT=parse(state.meta.startDate).getTime();
+  var dueT=tasks.map(function(t){return parse(t.due).getTime();}).sort(function(a,b){return a-b;});
+  var doneT=tasks.filter(function(t){return t.done;}).map(function(t){return parse(t.doneAt||TODAY).getTime();}).sort(function(a,b){return a-b;});
+  var min=Math.min(sT,dueT[0],doneT.length?doneT[0]:Infinity);
+  var max=Math.max(dueT[dueT.length-1],doneT.length?doneT[doneT.length-1]:0);
+  if(aT>max) max=aT;
+  max+=20*DAY; if(max<=min) max=min+30*DAY;
+  function X(t){return L+(t-min)/(max-min)*(W-L-R);}
+  function Y(n){return T+(1-n/total)*(H-T-B);}
+  var g=head;
+  // phase bands
+  var tints={1:"#EAF3EC",2:"#F6EDD2",3:"#E3EEE4"};
+  [1,2,3].forEach(function(ph){
+    var ds=tasks.filter(function(t){return t.phase===ph;}).map(function(t){return parse(t.due).getTime();}).sort(function(a,b){return a-b;});
+    if(!ds.length) return;
+    var x1=X(ph===1?min:ds[0]), x2=X(ds[ds.length-1]);
+    if(x2-x1<4) x2=x1+4;
+    g+='<rect x="'+x1.toFixed(1)+'" y="'+T+'" width="'+(x2-x1).toFixed(1)+'" height="'+(H-T-B)+'" fill="'+tints[ph]+'"/>';
+    g+='<text x="'+(x1+6).toFixed(1)+'" y="'+(T+14)+'" font-size="12" fill="#1B4D3E" font-weight="600">Phase '+ph+'</text>';
+  });
+  // y grid
+  var steps=[1,2,5,10,20,50,100],ys=1;for(var i=0;i<steps.length;i++){ys=steps[i];if(total/ys<=6)break;}
+  for(var v=0;v<=total;v+=ys){
+    g+='<line x1="'+L+'" x2="'+(W-R)+'" y1="'+Y(v).toFixed(1)+'" y2="'+Y(v).toFixed(1)+'" stroke="#D6E0D3" stroke-width="1"/>';
+    g+='<text x="'+(L-8)+'" y="'+(Y(v)+4).toFixed(1)+'" text-anchor="end" font-size="12" fill="#5B6B61">'+v+'</text>';
+  }
+  // x ticks
+  var spanM=(max-min)/(30.44*DAY), sm=1, opts=[1,2,3,6,12];
+  for(var k=0;k<opts.length;k++){sm=opts[k];if(spanM/sm<=9)break;}
+  var cur=new Date(new Date(min).getFullYear(),new Date(min).getMonth(),1);
+  if(cur.getTime()<min) cur=new Date(cur.getFullYear(),cur.getMonth()+1,1);
+  while(cur.getTime()<=max){
+    var x=X(cur.getTime());
+    g+='<line x1="'+x.toFixed(1)+'" x2="'+x.toFixed(1)+'" y1="'+(H-B)+'" y2="'+(H-B+5)+'" stroke="#5B6B61"/>';
+    g+='<text x="'+x.toFixed(1)+'" y="'+(H-B+20)+'" text-anchor="middle" font-size="12" fill="#5B6B61">'+cur.toLocaleDateString("en-GB",{month:"short",year:"2-digit"})+'</text>';
+    cur=new Date(cur.getFullYear(),cur.getMonth()+sm,1);
+  }
+  g+='<line x1="'+L+'" x2="'+(W-R)+'" y1="'+(H-B)+'" y2="'+(H-B)+'" stroke="#5B6B61"/>';
+  // planned
+  var pp="M"+X(min).toFixed(1)+","+Y(0).toFixed(1);
+  dueT.forEach(function(t,i){pp+=" H"+X(t).toFixed(1)+" V"+Y(i+1).toFixed(1);});
+  pp+=" H"+X(max).toFixed(1);
+  g+='<path d="'+pp+'" fill="none" stroke="#C8A24A" stroke-width="3" stroke-dasharray="7 5" stroke-linejoin="round"/>';
+  // actual
+  var ap="M"+X(min).toFixed(1)+","+Y(0).toFixed(1);
+  doneT.forEach(function(t,i){ap+=" H"+X(t).toFixed(1)+" V"+Y(i+1).toFixed(1);});
+  var lastX=doneT.length?doneT[doneT.length-1]:min, endT=(aT>=lastX&&aT<=max&&aT>=min)?aT:lastX;
+  ap+=" H"+X(endT).toFixed(1);
+  g+='<path d="'+ap+'" fill="none" stroke="#1B6B45" stroke-width="4" stroke-linejoin="round" stroke-linecap="round"/>';
+  g+='<circle cx="'+X(endT).toFixed(1)+'" cy="'+Y(doneT.length).toFixed(1)+'" r="5" fill="#1B6B45"/>';
+  // as-of marker
+  if(aT>=min&&aT<=max){
+    var ax=X(aT).toFixed(1);
+    g+='<line x1="'+ax+'" x2="'+ax+'" y1="'+T+'" y2="'+(H-B)+'" stroke="#17261E" stroke-width="1.5" stroke-dasharray="2 4"/>';
+    g+='<text x="'+ax+'" y="'+(T-6)+'" text-anchor="middle" font-size="12" fill="#17261E" font-weight="600">Report date</text>';
+  }
+  // legend
+  var lx=W-R-300;
+  g+='<line x1="'+lx+'" x2="'+(lx+26)+'" y1="14" y2="14" stroke="#C8A24A" stroke-width="3" stroke-dasharray="7 5"/><text x="'+(lx+32)+'" y="18" font-size="12" fill="#17261E">Planned (by due date)</text>';
+  g+='<line x1="'+(lx+170)+'" x2="'+(lx+196)+'" y1="14" y2="14" stroke="#1B6B45" stroke-width="4"/><text x="'+(lx+202)+'" y="18" font-size="12" fill="#17261E">Completed</text>';
+  g+='<text x="14" y="'+(T+(H-T-B)/2)+'" font-size="12" fill="#5B6B61" transform="rotate(-90 14 '+(T+(H-T-B)/2)+')" text-anchor="middle">Cumulative tasks</text>';
+  return g+"</svg>";
+}
+function renderChart(){el("chart").innerHTML=buildChart();}
+
+/* ---------- Render: checklist ---------- */
+function autosize(t){t.style.height="auto";t.style.height=t.scrollHeight+"px";}
+function groupsOf(phase){
+  var order=[],map={};
+  state.tasks.forEach(function(t){if(t.phase!==phase)return;if(!map[t.group]){map[t.group]=[];order.push(t.group);}map[t.group].push(t);});
+  return order.map(function(g){return {name:g,tasks:map[g]};});
+}
+function taskHTML(t){
+  var a=asOf(), over=!t.done&&t.due<a;
+  return '<li class="task'+(t.done?" done":"")+(over?" overdue":"")+'" data-id="'+esc(t.id)+'">'+
+   '<label class="chk"><input type="checkbox" data-f="done"'+(t.done?" checked":"")+' aria-label="Mark complete: '+esc(t.title)+'"><span class="box"></span></label>'+
+   '<textarea rows="1" data-f="title" aria-label="Task name">'+esc(t.title)+'</textarea>'+
+   '<label class="d owner"><span>Owner</span><input type="text" data-f="owner" value="'+esc(t.owner)+'" placeholder="Assign"></label>'+
+   '<label class="d due"><span>'+(over?"Overdue, due":"Due")+'</span><input type="date" data-f="due" value="'+esc(t.due)+'"></label>'+
+   '<label class="d doneon"'+(t.done?"":" hidden")+'><span>Completed</span><input type="date" data-f="doneAt" value="'+esc(t.doneAt)+'"></label>'+
+   '<button class="del" type="button" data-act="del" aria-label="Delete task">&times;</button>'+
+   '</li>';
+}
+function renderList(){
+  var out="";
+  [1,2,3].forEach(function(ph){
+    var all=state.tasks.filter(function(t){return t.phase===ph;}), d=all.filter(function(t){return t.done;}).length;
+    var open=!state.collapsed[ph];
+    out+='<div class="phase"><button type="button" class="phase-head" data-act="toggle" data-phase="'+ph+'" aria-expanded="'+open+'">'+
+      '<span><span class="pt">'+esc(PHASES[ph].name)+'</span><br><span class="pm">'+esc(PHASES[ph].months)+' · '+esc(PHASES[ph].goal)+'</span></span>'+
+      '<span class="pc">'+d+' / '+all.length+'<span class="pcm">completed</span></span></button>';
+    if(open){
+      var any=false;
+      groupsOf(ph).forEach(function(gr){
+        var vis=gr.tasks.filter(function(t){return filter==="all"||(filter==="done"?t.done:!t.done);});
+        if(!vis.length) return; any=true;
+        var gd=gr.tasks.filter(function(t){return t.done;}).length;
+        out+='<div class="group"><h3>'+esc(gr.name)+'<span>'+gd+' of '+gr.tasks.length+' completed</span></h3><ul class="tasks">'+vis.map(taskHTML).join("")+'</ul></div>';
+      });
+      if(!any) out+='<p class="empty">'+(filter==="all"?"No tasks in this phase yet.":"No tasks match this filter.")+'</p>';
+      out+='<div class="addrow"><button type="button" class="btn small" data-act="add" data-phase="'+ph+'">Add task to this phase</button></div>';
+    }
+    out+='</div>';
+  });
+  el("list").innerHTML=out;
+  Array.prototype.forEach.call(el("list").querySelectorAll("textarea"),autosize);
+}
+function renderAll(){
+  el("heroTitle").textContent=state.meta.title||"Project checklist";
+  el("heroSub").textContent=state.meta.subtitle||"";
+  document.title=(state.meta.title||"Project checklist")+" | Creed-to-Commerce™";
+  renderScore();renderChart();renderList();
+}
+
+/* ---------- Events: details form ---------- */
+function bindMeta(){
+  var M=state.meta;
+  el("fTitle").value=M.title;el("fSub").value=M.subtitle;el("fBy").value=M.preparedBy;el("fStart").value=M.startDate;el("fAsOf").value=M.reportDate||TODAY;
+  el("fTitle").addEventListener("input",function(e){state.meta.title=e.target.value;el("heroTitle").textContent=e.target.value;save();});
+  el("fSub").addEventListener("input",function(e){state.meta.subtitle=e.target.value;el("heroSub").textContent=e.target.value;save();});
+  el("fBy").addEventListener("input",function(e){state.meta.preparedBy=e.target.value;save();});
+  el("fStart").addEventListener("change",function(e){
+    var nv=e.target.value; if(!nv){e.target.value=state.meta.startDate;return;}
+    var delta=dayDiff(nv,state.meta.startDate);
+    if(delta!==0){state.tasks.forEach(function(t){t.due=addDays(t.due,delta);});toast("All due dates moved "+(delta>0?"later":"earlier")+" by "+Math.abs(delta)+" days.");}
+    state.meta.startDate=nv;save();renderAll();
+  });
+  el("fAsOf").addEventListener("change",function(e){
+    state.meta.reportDate=(e.target.value&&e.target.value!==TODAY)?e.target.value:"";save();renderAll();
+  });
+  el("btnToday").addEventListener("click",function(){state.meta.reportDate="";el("fAsOf").value=TODAY;save();renderAll();toast("Report date set to today.");});
+}
+
+/* ---------- Events: checklist ---------- */
+function findTask(id){for(var i=0;i<state.tasks.length;i++)if(state.tasks[i].id===id)return state.tasks[i];return null;}
+el("list").addEventListener("input",function(e){
+  var li=e.target.closest(".task"); if(!li) return;
+  var f=e.target.getAttribute("data-f"), t=findTask(li.getAttribute("data-id")); if(!t) return;
+  if(f==="title"){t.title=e.target.value;autosize(e.target);save();}
+  else if(f==="owner"){t.owner=e.target.value;save();}
+});
+el("list").addEventListener("change",function(e){
+  var li=e.target.closest(".task"); if(!li) return;
+  var f=e.target.getAttribute("data-f"), t=findTask(li.getAttribute("data-id")); if(!t) return;
+  if(f==="done"){t.done=e.target.checked;t.doneAt=t.done?TODAY:"";}
+  else if(f==="due"){if(!e.target.value){e.target.value=t.due;return;}t.due=e.target.value;}
+  else if(f==="doneAt"){t.doneAt=e.target.value||TODAY;}
+  else return;
+  save();renderAll();
+});
+el("list").addEventListener("click",function(e){
+  var b=e.target.closest("[data-act]"); if(!b) return;
+  var act=b.getAttribute("data-act");
+  if(act==="toggle"){var ph=b.getAttribute("data-phase");state.collapsed[ph]=!state.collapsed[ph];save();renderList();}
+  else if(act==="del"){
+    var li=b.closest(".task"), t=findTask(li.getAttribute("data-id"));
+    if(t&&confirm('Delete this task?\n\n'+t.title)){state.tasks=state.tasks.filter(function(x){return x!==t;});save();renderAll();toast("Task deleted.");}
+  }
+  else if(act==="add"){
+    var ph2=Number(b.getAttribute("data-phase")), inPh=state.tasks.filter(function(x){return x.phase===ph2;});
+    var due=inPh.length?inPh.map(function(x){return x.due;}).sort().pop():addMonths(state.meta.startDate,ph2===1?12:ph2===2?18:30);
+    var nt={id:"n"+Date.now(),phase:ph2,group:"Added tasks",title:"New task",owner:"",due:due,done:false,doneAt:""};
+    state.tasks.push(nt);state.collapsed[ph2]=false;save();
+    if(filter==="done"){filter="all";syncFilter();}
+    renderAll();
+    var row=el("list").querySelector('[data-id="'+nt.id+'"] textarea'); if(row){row.focus();row.select();}
+  }
+});
+function syncFilter(){Array.prototype.forEach.call(document.querySelectorAll("[data-filter]"),function(b){b.setAttribute("aria-pressed",String(b.getAttribute("data-filter")===filter));});}
+Array.prototype.forEach.call(document.querySelectorAll("[data-filter]"),function(b){
+  b.addEventListener("click",function(){filter=b.getAttribute("data-filter");syncFilter();renderList();});
+});
+
+/* ---------- Backup / restore / reset ---------- */
+el("btnExport").addEventListener("click",function(){
+  var blob=new Blob([JSON.stringify(state,null,2)],{type:"application/json"});
+  var a=document.createElement("a");a.href=URL.createObjectURL(blob);a.download="BMPA-Aquaponics-Madinah-Checklist-"+TODAY+".json";
+  document.body.appendChild(a);a.click();setTimeout(function(){URL.revokeObjectURL(a.href);a.remove();},500);
+  toast("Backup file saved.");
+});
+el("btnImport").addEventListener("click",function(){el("fileIn").click();});
+el("fileIn").addEventListener("change",function(e){
+  var f=e.target.files[0]; if(!f) return;
+  var r=new FileReader();
+  r.onload=function(){
+    try{
+      var s=JSON.parse(r.result);
+      if(!s||!s.meta||!Array.isArray(s.tasks)) throw new Error("bad");
+      s.collapsed=s.collapsed||{}; state=s; save(); bindMetaValues(); renderAll(); toast("Backup loaded.");
+    }catch(err){toast("That file is not a checklist backup. Choose a file saved from this app.");}
+  };
+  r.readAsText(f); e.target.value="";
+});
+function bindMetaValues(){var M=state.meta;el("fTitle").value=M.title;el("fSub").value=M.subtitle;el("fBy").value=M.preparedBy;el("fStart").value=M.startDate;el("fAsOf").value=M.reportDate||TODAY;}
+el("btnReset").addEventListener("click",function(){
+  if(!confirm("Reset to the original proposal plan? This clears your completed tasks, edits, and dates.")) return;
+  state=seed();save();bindMetaValues();renderAll();toast("Checklist reset to the proposal plan.");
+});
+
+/* ---------- PDF report ---------- */
+function svgToPng(svg,w,h){
+  return new Promise(function(res,rej){
+    var s=svg.replace("<svg ",'<svg width="'+w+'" height="'+h+'" ');
+    var img=new Image();
+    img.onload=function(){var c=document.createElement("canvas");c.width=w*2;c.height=h*2;var x=c.getContext("2d");x.fillStyle="#fff";x.fillRect(0,0,c.width,c.height);x.drawImage(img,0,0,c.width,c.height);res(c.toDataURL("image/png"));};
+    img.onerror=function(){rej(new Error("chart"));};
+    img.src="data:image/svg+xml;charset=utf-8,"+encodeURIComponent(s);
+  });
+}
+function basmalaPNG(){
+  var txt="بِسْمِ ٱللَّهِ ٱلرَّحْمَٰنِ ٱلرَّحِيمِ";
+  var ready=(document.fonts&&document.fonts.load)?document.fonts.load("96px Amiri",txt).catch(function(){}):Promise.resolve();
+  return ready.then(function(){
+    var c=document.createElement("canvas");c.width=1400;c.height=200;var x=c.getContext("2d");
+    x.direction="rtl";x.textAlign="center";x.textBaseline="middle";x.fillStyle="#E4C877";
+    x.font='96px Amiri, "Traditional Arabic", serif';x.fillText(txt,700,104);
+    return c.toDataURL("image/png");
+  });
+}
+function buildPDF(){
+  if(!(window.jspdf&&window.jspdf.jsPDF)){toast("The PDF library did not load. Check your internet connection and reload the page.");return Promise.resolve();}
+  var btn=el("btnPdf");btn.disabled=true;btn.textContent="Building report...";
+  return Promise.all([basmalaPNG(),svgToPng(buildChart(),900,340)]).then(function(imgs){
+    var jsPDF=window.jspdf.jsPDF, doc=new jsPDF({unit:"pt",format:"a4"});
+    var W=595.28,H=841.89,M=40,CW=W-2*M,y=0;
+    var G7=[27,77,62],G5=[46,125,79],GOLD=[200,162,74],INK=[23,38,30],MUTED=[91,107,97],WARN=[164,69,44];
+    var s=stats(), a=asOf();
+
+    // Cover band
+    doc.setFillColor.apply(doc,G7);doc.rect(0,0,W,132,"F");
+    doc.setFillColor.apply(doc,GOLD);doc.rect(0,132,W,4,"F");
+    doc.addImage(imgs[0],"PNG",W/2-165,12,330,47.1);
+    doc.setTextColor(255,255,255);doc.setFont("times","bold");doc.setFontSize(21);
+    doc.text(doc.splitTextToSize(state.meta.title||"Project checklist",CW),W/2,80,{align:"center"});
+    doc.setFont("times","normal");doc.setFontSize(11.5);doc.setTextColor(228,200,119);
+    doc.text(state.meta.subtitle||"",W/2,98,{align:"center",maxWidth:CW});
+    doc.setFontSize(10.5);doc.setTextColor(207,224,211);
+    doc.text("Creed-to-Commerce\u2122  |  Project Status Report",W/2,118,{align:"center"});
+    y=156;
+
+    doc.setFont("helvetica","normal");doc.setFontSize(9.5);doc.setTextColor.apply(doc,MUTED);
+    doc.text("Prepared by: "+(state.meta.preparedBy||""),M,y);
+    doc.text("Project start: "+fmt(state.meta.startDate)+"   |   Status as of: "+fmt(a),W-M,y,{align:"right"});
+    y+=14;
+
+    // Score cards
+    var cw=(CW-30)/4, cards=[["Completed",String(s.done),G5],["Not completed",String(s.open),INK],["Overdue",String(s.late),s.late?WARN:INK],["Complete",s.pct+"%",G7]];
+    cards.forEach(function(c,i){
+      var x=M+i*(cw+10);
+      doc.setDrawColor(214,224,211);doc.setFillColor(255,255,255);doc.roundedRect(x,y,cw,54,4,4,"FD");
+      doc.setFont("times","bold");doc.setFontSize(26);doc.setTextColor.apply(doc,c[2]);doc.text(c[1],x+12,y+30);
+      doc.setFont("helvetica","normal");doc.setFontSize(9);doc.setTextColor.apply(doc,MUTED);doc.text(c[0],x+12,y+44);
+    });
+    y+=66;
+    // progress bar
+    doc.setFillColor(227,238,228);doc.roundedRect(M,y,CW,8,4,4,"F");
+    if(s.pct>0){doc.setFillColor.apply(doc,G5);doc.roundedRect(M,y,Math.max(8,CW*s.pct/100),8,4,4,"F");}
+    y+=22;
+    doc.setFont("helvetica","bold");doc.setFontSize(10);doc.setTextColor.apply(doc,s.behind?WARN:G7);
+    doc.text(s.pace,M,y);y+=14;
+
+    // Chart
+    doc.setFont("times","bold");doc.setFontSize(14);doc.setTextColor.apply(doc,G7);doc.text("Timeline: planned versus completed",M,y+6);
+    doc.setFillColor.apply(doc,GOLD);doc.rect(M,y+11,CW,1.5,"F");y+=20;
+    var ch=CW*340/900;doc.addImage(imgs[1],"PNG",M,y,CW,ch);y+=ch+14;
+
+    // Task tables
+    var cols={chk:M,title:M+22,owner:M+292,due:M+384,done:M+456};
+    function colHeader(){
+      doc.setFillColor(227,238,228);doc.rect(M,y,CW,16,"F");
+      doc.setFont("helvetica","bold");doc.setFontSize(8.5);doc.setTextColor.apply(doc,G7);
+      doc.text("Task",cols.title,y+11);doc.text("Owner",cols.owner,y+11);doc.text("Due",cols.due,y+11);doc.text("Completed",cols.done,y+11);
+      y+=16;
+    }
+    function ensure(h,redrawHeader){
+      if(y+h>H-56){doc.addPage();y=46;if(redrawHeader)colHeader();}
+    }
+    [1,2,3].forEach(function(ph){
+      var all=state.tasks.filter(function(t){return t.phase===ph;}); if(!all.length) return;
+      var d=all.filter(function(t){return t.done;}).length;
+      ensure(70,false);
+      doc.setFillColor.apply(doc,G7);doc.rect(M,y,CW,24,"F");
+      doc.setFont("times","bold");doc.setFontSize(13);doc.setTextColor(255,255,255);doc.text(PHASES[ph].name,M+8,y+16);
+      doc.setFont("helvetica","normal");doc.setFontSize(9.5);doc.setTextColor(228,200,119);doc.text(d+" of "+all.length+" completed",W-M-8,y+15.5,{align:"right"});
+      y+=24;colHeader();
+      groupsOf(ph).forEach(function(gr){
+        ensure(44,true);
+        doc.setFont("helvetica","bold");doc.setFontSize(9.5);doc.setTextColor.apply(doc,G7);
+        doc.text(gr.name,M+2,y+13);doc.setDrawColor.apply(doc,GOLD);doc.setLineWidth(.8);doc.line(M,y+17,W-M,y+17);y+=22;
+        gr.tasks.forEach(function(t){
+          doc.setFont("helvetica","normal");doc.setFontSize(9);
+          var lines=doc.splitTextToSize(t.title||"",262), h=Math.max(20,lines.length*11+8);
+          ensure(h,true);
+          var over=!t.done&&t.due<a;
+          // checkbox
+          doc.setDrawColor.apply(doc,G5);doc.setLineWidth(1);
+          if(t.done){doc.setFillColor.apply(doc,G5);doc.rect(cols.chk+1,y+4,10,10,"FD");doc.setDrawColor(255,255,255);doc.setLineWidth(1.6);doc.line(cols.chk+3.2,y+9.2,cols.chk+5.6,y+11.8);doc.line(cols.chk+5.6,y+11.8,cols.chk+9.4,y+6.4);}
+          else{doc.setFillColor(255,255,255);doc.rect(cols.chk+1,y+4,10,10,"FD");}
+          doc.setTextColor.apply(doc,t.done?MUTED:INK);doc.text(lines,cols.title,y+12);
+          doc.setTextColor.apply(doc,MUTED);doc.text(doc.splitTextToSize(t.owner||"-",80)[0],cols.owner,y+12);
+          doc.setFont("helvetica",over?"bold":"normal");doc.setTextColor.apply(doc,over?WARN:INK);doc.text(fmt(t.due)+(over?" (overdue)":""),cols.due,y+12,{maxWidth:70});
+          doc.setFont("helvetica","normal");doc.setTextColor.apply(doc,t.done?G5:MUTED);doc.text(t.done?fmt(t.doneAt||TODAY):"-",cols.done,y+12);
+          doc.setDrawColor(237,242,235);doc.setLineWidth(.5);doc.line(M,y+h,W-M,y+h);
+          y+=h;
+        });
+        y+=4;
+      });
+      y+=10;
+    });
+
+    // Footers
+    var n=doc.getNumberOfPages();
+    for(var i=1;i<=n;i++){
+      doc.setPage(i);
+      doc.setDrawColor.apply(doc,GOLD);doc.setLineWidth(1);doc.line(M,H-40,W-M,H-40);
+      doc.setFont("helvetica","normal");doc.setFontSize(8);doc.setTextColor.apply(doc,MUTED);
+      doc.text("\u00A9 2026 The Balanced Middle Path Academy, LLC (BMPA)  |  Creed-to-Commerce\u2122",M,H-26);
+      doc.text("Page "+i+" of "+n,W-M,H-26,{align:"right"});
+      if(i>1){doc.setFontSize(8);doc.text((state.meta.title||"")+"  |  CONFIDENTIAL",W-M,30,{align:"right"});}
+    }
+    doc.save("BMPA-Aquaponics-Madinah-Checklist-Report-"+TODAY+".pdf");
+    toast("PDF report built. Check your downloads.");
+  }).catch(function(err){
+    console.error(err);toast("The PDF could not be built. Reload the page and try again.");
+  }).then(function(){btn.disabled=false;btn.textContent="Build PDF report";});
+}
+el("btnPdf").addEventListener("click",buildPDF);
+
+/* ---------- Init ---------- */
+state=load();
+bindMeta();
+renderAll();
+window.addEventListener("resize",function(){Array.prototype.forEach.call(el("list").querySelectorAll("textarea"),autosize);});
+})();
+</script>
+</body>
+</html>
